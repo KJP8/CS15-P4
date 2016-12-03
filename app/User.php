@@ -29,7 +29,3 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 }
-
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasRoleAndPermissionContract
-{
-    use Authenticatable, CanResetPassword, HasRoleAndPermission;
