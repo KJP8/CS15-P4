@@ -1,0 +1,31 @@
+body {
+  font-family: sans-serif;
+  padding-top: 60px;
+  padding-bottom: 20px;
+}
+
+navbar {
+
+}
+
+form {
+
+}
+
+.error {
+  font-size: 150%;
+  color: red;
+}
+
+.links {
+   
+}
+
+/* link styling */
+a:link, a:visited, a:active {
+    color: ;
+}
+a:hover {
+    color: ;
+    text-decoration: none;
+}
