@@ -28,4 +28,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    /* Relationship Methods */
+    public function foods()
+    {
+        # With timetsamps() will ensure the pivot table has its created_at/updated_at fields automatically maintained
+        return $this->belongsToMany('App\Food')->withTimestamps();
+    }
+    
+    /* End Relationship Methods */
 }
