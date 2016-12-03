@@ -1,0 +1,14 @@
+h1 {
+    padding-bottom: 20px;
+}
+
+p {
+    padding-bottom: 20px;
+}
+
+#users {
+    border-style: solid;
+    border-radius: 10px;
+    border-width: thin;
+    margin: 0px 400px 0px 400px;
+}

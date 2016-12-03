@@ -6,9 +6,6 @@
 
 @section('content')
     <h1 class="text-center">Welcome to Nutritionist at Your Fingertips!</h1>
-@stop
-
-@section('body')
     <div id="info" class="container">
         <div class="row">
             <div class="col-md-4">
@@ -22,4 +19,7 @@
         </div>
         </div>
     </div>
+@stop
+
+@section('body')
 @stop

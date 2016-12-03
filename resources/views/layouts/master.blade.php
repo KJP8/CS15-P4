@@ -20,7 +20,8 @@
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <ul class="nav navbar-nav">
-                <li><a href='/'>Home</a></li>
+                <li><a href='/'>Main Page</a></li>
+                <li><a href='#'>Home</a></li>
             </ul>
             {{-- Add logic here for logged in users and admins --}}
             <ul class='nav navbar-nav pull-right'>

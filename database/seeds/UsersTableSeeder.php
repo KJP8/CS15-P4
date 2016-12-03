@@ -14,9 +14,9 @@ class UsersTableSeeder extends Seeder
     {
         # Define the users you want to add
         $users = [
-            ['jill@harvard.edu','jill','helloworld'], # <-- Required for P4
-            ['jamal@harvard.edu','jamal','helloworld'], # <-- Required for P4
-            ['admin@admin.com','admin','admin'] # <-- Update with your own info, or remove
+            ['jill@harvard.edu','Jill','helloworld'], # <-- Required for P4
+            ['jamal@harvard.edu','Jamal','helloworld'], # <-- Required for P4
+            ['admin@admin.com','Admin','admin'] # <-- Update with your own info, or remove
         ];
         # Get existing users to prevent duplicates
         $existingUsers = User::all()->keyBy('email')->toArray();
