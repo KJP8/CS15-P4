@@ -15,7 +15,7 @@
     @else
         <div id='users' class="text-center">
             @foreach($users as $user)
-                <a href='#'><h3 class='truncate'>{{ $user->name }}</h3></a>
+                <a href="<?php echo route('users.show', $user->id) ?>"><h3 class='truncate'>{{ $user->name }}</h3></a>
             @endforeach
         </div>    
     @endif

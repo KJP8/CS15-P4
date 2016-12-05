@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'HomeController@index')->name('home.index');
 
-Route::get('/admin-home', 'AdminHomeController@show');
-Route::get('/admin-home', 'AdminHomeController@index');
+Route::get('/admin-home', 'AdminHomeController@show')->name('admin.show');
 
+Route::get('/user-home/{id?}', 'UserHomeController@show')->name('users.show');
+
+Route::post('/books', 'UserHomeController@store')->name('users.store');
 
 
 Auth::routes();

@@ -11,17 +11,13 @@ class AdminHomeController extends Controller
 {
 
     /**
-    * Responds to requests to GET /books
+    * Responds to requests to GET /admin-home
     */
-    public function show()
-    {
-        return view('/admin-home');
-    }
     
-    public function index(Request $request)
+    public function show(Request $request)
     {
-        $users = DB::table('users')->where('id', '!=', Auth::id())
-            ->orderBy('name', 'desc')
+        $users = DB::table('users')
+            ->orderBy('name', 'asc')
             ->get();
             
         return view('/admin-home', ['users' => $users]);
