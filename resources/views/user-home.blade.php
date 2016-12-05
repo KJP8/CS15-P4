@@ -13,42 +13,46 @@
         
     <div>
         @if(sizeof($foods) == 0)
-            There are currently no foods in the Grocery List.
+            <div class="text-center">
+                <h3>There are currently no foods in the Grocery List.<h3>
+            </div>
         @else
             <div id='foods' class="text-center">
                 @foreach($foods as $food)
                     <h3 class='truncate'>{{ $food->food_name }}</h3>
+                    <a class='button' href='/edit/{{ $user->id }}/{{ $food->id }}'>Edit</a>
+                    {{-- <a class='button' href='/delete/{{ $food->id }}'>Delete</a> --}}
                 @endforeach
             </div>    
      @endif
     </div>
+       
+    @if($edit)    
+        <div>
+            <form method='POST' action='/user-home'>
+    
+            {{ csrf_field() }}
         
-    <div>
-        <form method='POST' action='/user-home/{id?}'>
-
-        {{ csrf_field() }}
-
-        <div class='form-group'>
-           <label>Food</label>
-            <input
-                type='text'
-                id='food'
-                name='food'
-            >
-           <div class='error'>{{ $errors->first('food') }}</div>
-            
-            <div class='form-instructions'>
-            All fields are required
-            </div>
-
-            <button type="submit" class="btn btn-primary">Add Food</button>
+                <input name='id' value='{{ $user->id }}' type='hidden'>
                 
-            <div class='error'>
-            @if(count($errors) > 0)
-                Please correct the errors above and try again.
-            @endif
-            </div>
+                <div class='form-group'>
+                   <label>Food</label>
+                    <input
+                        type='text'
+                        id='food'
+                        name='food'
+                    >
+                   <div class='error'>{{ $errors->first('food') }}</div>
+        
+                    <button type="submit" class="btn btn-primary">Add Food</button>
+                        
+                    <div class='error'>
+                    @if(count($errors) > 0)
+                        Please enter a food and try again.
+                    @endif
+                    </div>
+                </div>
+            </form>
         </div>
-
-    </div>
+    @endif
 @stop
