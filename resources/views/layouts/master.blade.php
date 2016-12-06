@@ -21,7 +21,10 @@
         <div class="container-fluid">
             <ul class="nav navbar-nav">
                 <li><a href='/'>Main Page</a></li>
-                <li><a href='#'>Home</a></li>
+                @if(Auth::check())
+                    <li><a href='/admin-home'>Home</a></li>
+                    <li><a href='/user-home/{{ Auth::user()->id }}'>My Grocery List</a></li>
+                @endif
             </ul>
             {{-- Add logic here for logged in users and admins --}}
             <ul class='nav navbar-nav pull-right'>
@@ -34,6 +37,10 @@
         </ul>
         </div>
     </nav>
+        
+    @if(Session::get('flash_message') != null)
+        <div class='flash_message'>{{ Session::get('flash_message') }}</div>
+    @endif
     
     <section>
         {{-- Main page content will be yielded here --}}

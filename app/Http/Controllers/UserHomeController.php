@@ -20,6 +20,13 @@ class UserHomeController extends Controller
     public function show( $id = null )
     {
         $user = User::find($id);
+        
+        if(is_null($user)) {
+            Session::flash('flash_message','User not found.');
+            return redirect('/');
+        };
+        
+        
         $foods = $user->foods;
         $edit = false;
         
@@ -33,7 +40,8 @@ class UserHomeController extends Controller
                 'foods' => $foods,
                 'edit' => $edit,
             ]
-        );        
+        );
+    
     }
 
      /**
@@ -43,7 +51,7 @@ class UserHomeController extends Controller
     {
         # Validate
         $this->validate($request, [
-            'food' => 'required|min:3'
+            'food' => 'required|min:3|alpha_num'
         ]);
         # If there were errors, Laravel will redirect the
         # user back to the page that submitted this request
@@ -55,15 +63,30 @@ class UserHomeController extends Controller
         //$food_name = $request->input('food_name'); # Option 2) USE THIS ONE! :)
         
         // TODO check the food table if food already exists
+        $reqFood = $request->input('food');
+        $food = Food::where('food_name', '=', $reqFood)->first();
         
-        $food = new Food();
-        $food->food_name = $request->input('food');
-        $food->save();
+        if(is_null($food)) {
+            $food = new Food();
+            $food->food_name = $request->input('food');
+            $food->save();
+        };
         
         $id = $request->input('id');
         $user = User::find($id);
-        $user->foods()->save($food);
         
+        $foods = $user->foods;
+        foreach ($foods as $item) {
+            if ($reqFood == $item->food_name) {
+                
+                Session::flash('flash_message', $food->food_name.' is already in your list.');
+                return redirect('/user-home/'.$id);
+                
+            }   
+        }
+        
+        $user->foods()->save($food);
+                
         Session::flash('flash_message', $food->food_name.' was added.');
         return redirect('/user-home/'.$id);
     }
@@ -73,8 +96,18 @@ class UserHomeController extends Controller
     */
     public function edit($user_id = null, $id = null)
     {
-        $user = User::find($user_id);
         $food = Food::find($id);
+        if(is_null($food)) {
+            Session::flash('flash_message','Food not found.');
+            return redirect('/user-home/'.$user_id);
+        }
+        
+        $user = User::find($user_id);
+        if(is_null($user)) {
+            Session::flash('flash_message','User not found.');
+            return redirect('/');
+        };
+        
         return view('/edit')->with(
             [
                 'food' => $food,
@@ -90,7 +123,7 @@ class UserHomeController extends Controller
     {
         # Validate
         $this->validate($request, [
-            'food' => 'required|min:3',
+            'food' => 'required|min:3|alpha_num',
         ]);
         # Find and update book
         $food = Food::find($request->food_id);
@@ -101,6 +134,31 @@ class UserHomeController extends Controller
         
         # Finish
         Session::flash('flash_message', 'Your changes to '.$food->food_name.' were saved.');
+        return redirect('/user-home/'.$user_id);
+    }
+    
+     /**
+    * GET
+    */
+    public function delete($user_id = null, $id = null)
+    {
+        # Get the book to be deleted
+        $food = Food::find($id);
+        if(is_null($food)) {
+            Session::flash('flash_message','Food not found.');
+            return redirect('/user-home/'.$user_id);
+        }
+        
+        $user = User::find($user_id);
+        if(is_null($user)) {
+            Session::flash('flash_message','User not found.');
+            return redirect('/');
+        };
+        # First remove any tags associated with this book
+        $user->foods()->detach($id);
+
+        # Finish
+        Session::flash('flash_message', $food->food_name.' was deleted.');
         return redirect('/user-home/'.$user_id);
     }
     
