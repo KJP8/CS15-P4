@@ -17,12 +17,14 @@ Route::get('/admin-home', 'AdminHomeController@show')->name('admin.show');
 
 Route::get('/user-home/{id}', 'UserHomeController@show')->name('users.show');
 
-Route::post('/user-home/{id}', 'UserHomeController@store')->name('users.store');
+Route::post('/user-home', 'UserHomeController@store')->name('users.store');
 
 # Show form to edit a food
 Route::get('/edit/{user_id}/{id}', 'UserHomeController@edit')->name('users.edit');
 # Process form to edit a food
 Route::put('/user-home/{id}', 'UserHomeController@update')->name('users.update');
+
+Route::get('/delete/{user_id}/{id}', 'UserHomeController@delete')->name('users.delete');
 
 
 
