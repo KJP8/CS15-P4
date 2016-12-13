@@ -5,26 +5,26 @@
 @stop
 
 @section('content')
-    @if(Auth::check())
-        <h1 class="text-center">Welcome to Nutritionist at Your Fingertips, {{ Auth::user()->name }}!</h1>
-    @else
-        <h1 class="text-center">Welcome to Nutritionist at Your Fingertips!</h1>
-    @endif
     <div id="info" class="container">
         <div class="row">
+            @if(Auth::check())
+                <h1 class="text-center">Welcome to the Grocery List App, {{ Auth::user()->name }}!</h1>
+            @else
+                <h1 class="text-center">Welcome to the Grocery List App!</h1>
+            @endif
             <div class="col-md-4">
-                <p>Nutritionist at Your Fingertips enables users to easily plan meals and keep on track toward their weight loss, gain, or maintenance goals!</p>
+                <p class="text-center">The Grocery List App enables users to easily plan their next grocery trip and keep track of what they have and haven't purchased!</p>
             </div>
             <div class="col-md-4">
-                <p>By signing up for Nutritionist at Your Fingertips, you will have an assigned nutritionist who understands your goals, needs, and dietary restrictions. Your nutritionist will assign foods to your food diary each day so you don't have to think about what to eat to reach your goals. All you need to do is update your food diary as you eat so your nutritionist can ensure you are staying on track.</p>
+                <p class="text-center">By signing up for the Grocery List App, you will be able to see other users' grocery lists as well as add foods to and delete foods from your own personal grocery list. As an added bonus, you get to see the nutritional information about each food you add as you add them!</p>
             </div>
             @if(Auth::check())
                 <div class="col-md-4">
-                    <p>Go to your <a href="/admin-home">Homepage</a> to view other users' grocery lists or go to <a href="/user-home/{{ Auth::user()->id }}">My Grocery List</a> to view and edit your grocery list!</p>
+                    <p class="text-center">Go to your <a class="link" href="/home">Homepage</a> to view other users' grocery lists or go to <a class="link" href="/grocery-list/{{ Auth::user()->id }}">My Grocery List</a> to view and edit your grocery list!</p>
                 </div>
             @else
             <div class="col-md-4">
-                <p><a href="/login">Log In</a> or <a href="/register">Sign Up</a> now to get daily meals planned for you by an expert nutritionist!</p>
+                <p class="text-center"><a href="/login" class="link">Log In</a> or <a href="/register" class="link">Sign Up</a> now to create your own grocery list and access other users' grocery lists!</p>
             </div>
             @endif
         </div>

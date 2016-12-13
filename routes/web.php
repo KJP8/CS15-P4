@@ -11,20 +11,20 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home.index');
+Route::get('/', 'IndexController@index')->name('main.index');
 
-Route::get('/admin-home', 'AdminHomeController@show')->name('admin.show');
+Route::get('/home', 'HomeController@show')->name('home.show');
 
-Route::get('/user-home/{id}', 'UserHomeController@show')->name('users.show');
+Route::get('/grocery-list/{id}', 'GroceryListController@show')->name('foods.show');
 
-Route::post('/user-home', 'UserHomeController@store')->name('users.store');
+Route::post('/grocery-list', 'GroceryListController@store')->name('foods.store');
 
 # Show form to edit a food
-Route::get('/edit/{user_id}/{id}', 'UserHomeController@edit')->name('users.edit');
+Route::get('/edit/{user_id}/{id}', 'GroceryListController@edit')->name('foods.edit');
 # Process form to edit a food
-Route::put('/user-home/{id}', 'UserHomeController@update')->name('users.update');
+Route::put('/grocery-list/{id}', 'GroceryListController@update')->name('foods.update');
 
-Route::get('/delete/{user_id}/{id}', 'UserHomeController@delete')->name('users.delete');
+Route::get('/delete/{user_id}/{id}', 'GroceryListController@delete')->name('foods.delete');
 
 
 

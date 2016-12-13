@@ -1,0 +1,26 @@
+#firstCol {
+    padding-left: 20px;
+}
+
+#directions {
+    color: green;
+    padding-bottom: 20px;
+}
+
+#groceryBasket {
+    width: 50%;
+    display: block;
+    margin: auto;
+}
+
+button {
+    margin-top: 10px;
+}
+
+form {
+    width: 80%;
+}
+
+#warning, #list {
+    color: green;
+}

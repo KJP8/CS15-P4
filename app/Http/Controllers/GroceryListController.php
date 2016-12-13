@@ -11,7 +11,7 @@ use Session;
 use App\User;
 use App\Food;
 
-class UserHomeController extends Controller
+class GroceryListController extends Controller
 {
     /**
     * Responds to requests to GET /user-home
@@ -34,7 +34,7 @@ class UserHomeController extends Controller
             $edit = true;
         };
 
-        return view('/user-home')->with(
+        return view('/grocery-list')->with(
             [
                 'user' => $user,
                 'foods' => $foods,
@@ -80,7 +80,7 @@ class UserHomeController extends Controller
             if ($reqFood == $item->food_name) {
                 
                 Session::flash('flash_message', $food->food_name.' is already in your list.');
-                return redirect('/user-home/'.$id);
+                return redirect('/grocery-list/'.$id);
                 
             }   
         }
@@ -88,7 +88,18 @@ class UserHomeController extends Controller
         $user->foods()->save($food);
                 
         Session::flash('flash_message', $food->food_name.' was added.');
-        return redirect('/user-home/'.$id);
+        return redirect('/grocery-list/'.$id);
+        
+        $apiUrl = "https://api.nutritionix.com/v1_1/search/"+food_name+"?results=0%3A01&cal_min=0&cal_max=50000&fields=brand_name%2Citem_name%2Cbrand_id%2Citem_id%2Cnf_calories%2Cnf_calories_from_fat%2Cnf_total_fat%2Cnf_serving_size_qty%2Cnf_serving_size_unit&appId=292ceba0&appKey=7e655ebb06666510ffa38ccc8b95f9e0";
+        $jsonStringResults = file_get_contents($apiUrl);
+        
+        # Show all the data
+        dump($data);
+
+        # Loop through the data printing just the title for each book
+        foreach($data['hits'] as $food) {
+            echo $food['fields']['nf_calories'].'<br>';
+        }
     }
     
     /**
@@ -99,7 +110,7 @@ class UserHomeController extends Controller
         $food = Food::find($id);
         if(is_null($food)) {
             Session::flash('flash_message','Food not found.');
-            return redirect('/user-home/'.$user_id);
+            return redirect('/grocery-list/'.$user_id);
         }
         
         $user = User::find($user_id);
@@ -134,7 +145,7 @@ class UserHomeController extends Controller
         
         # Finish
         Session::flash('flash_message', 'Your changes to '.$food->food_name.' were saved.');
-        return redirect('/user-home/'.$user_id);
+        return redirect('/grocery-list/'.$user_id);
     }
     
      /**
@@ -146,7 +157,7 @@ class UserHomeController extends Controller
         $food = Food::find($id);
         if(is_null($food)) {
             Session::flash('flash_message','Food not found.');
-            return redirect('/user-home/'.$user_id);
+            return redirect('/grocery-list/'.$user_id);
         }
         
         $user = User::find($user_id);
@@ -159,7 +170,7 @@ class UserHomeController extends Controller
 
         # Finish
         Session::flash('flash_message', $food->food_name.' was deleted.');
-        return redirect('/user-home/'.$user_id);
+        return redirect('/grocery-list/'.$user_id);
     }
     
 } # end of class
