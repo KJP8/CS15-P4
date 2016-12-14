@@ -37,6 +37,20 @@
                                     </div>
                                 </div>
                             </form>
+                            @if(Session::has('item_id'))
+                                <div id="nutritionInfo">
+                                    <h2>Nutritional Information</h2>
+                                    <div id="nutritionOutput">
+                                        <p id="foodOutput">{{ Session::get('reqFood') }}</p>
+                                        <ul>
+                                            <li id="cal">{{ Session::get('nf_calories') }}</li>
+                                            <li id="fatCal">{{ Session::get('nf_calories_from_fat') }}</li>
+                                            <li id="fat">{{ Session::get('nf_total_fat') }}</li>
+                                            <li id="serving">{{ Session::get('nf_serving_size_qty') }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     @endif
                 </div>
