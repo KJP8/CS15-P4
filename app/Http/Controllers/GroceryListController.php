@@ -51,7 +51,7 @@ class GroceryListController extends Controller
     {
         # Validate
         $this->validate($request, [
-            'food' => 'required|min:3|alpha_num'
+            'food' => 'required|min:3|regex:/^[\pL\s]+$/u'
         ]);
         # If there were errors, Laravel will redirect the
         # user back to the page that submitted this request
@@ -85,19 +85,24 @@ class GroceryListController extends Controller
             }   
         }
         
-        $apiUrl = "https://api.nutritionix.com/v1_1/search/".$reqFood."?results=0%3A01&cal_min=0&cal_max=50000&fields=brand_name%2Citem_name%2Cbrand_id%2Citem_id%2Cnf_calories%2Cnf_calories_from_fat%2Cnf_total_fat%2Cnf_serving_size_qty%2Cnf_serving_size_unit&appId=292ceba0&appKey=7e655ebb06666510ffa38ccc8b95f9e0";
+        $noSpacesFood = preg_replace('/\s+/', '%20', $reqFood);
+        
+        $apiUrl = "https://api.nutritionix.com/v1_1/search/".$noSpacesFood."?results=0%3A01&cal_min=0&cal_max=50000&fields=brand_name%2Citem_name%2Cbrand_id%2Citem_id%2Cnf_calories%2Cnf_calories_from_fat%2Cnf_total_fat%2Cnf_serving_size_qty%2Cnf_serving_size_unit&appId=292ceba0&appKey=7e655ebb06666510ffa38ccc8b95f9e0";
         $jsonStringResults = file_get_contents($apiUrl);
         
         $data = json_decode($jsonStringResults, true);
-
-        $results = $data['hits'][0]['fields'];
         
-        $user->foods()->save($food);
-                
-        Session::flash('flash_message', $food->food_name.' was added.');
+        if ($data['total_hits'] > 0) {
+            $results = $data['hits'][0]['fields'];
+            $user->foods()->save($food);
+            Session::flash('flash_message', $food->food_name.' was added.');
+            return redirect('grocery-list/'.$id)->with($results)->with('reqFood', $reqFood);
+        }
+        else {
+            Session::flash('flash_message', 'No results returned for '.$food->food_name.'. Please enter an actual food name.');
+            return redirect('grocery-list/'.$id);
+        }
         
-        $groceryListView = 'grocery-list/'.$id;
-        return redirect($groceryListView)->with($results)->with('reqFood', $reqFood);
         
     }
     
@@ -133,7 +138,7 @@ class GroceryListController extends Controller
     {
         # Validate
         $this->validate($request, [
-            'food' => 'required|min:3|alpha_num',
+            'food' => 'required|min:3|regex:/^[\pL\s]+$/u',
         ]);
         # Find and update book
         $food = Food::find($request->food_id);

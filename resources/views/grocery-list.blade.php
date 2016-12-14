@@ -43,10 +43,10 @@
                                     <div id="nutritionOutput">
                                         <p id="foodOutput">{{ Session::get('reqFood') }}</p>
                                         <ul>
-                                            <li id="cal">{{ Session::get('nf_calories') }}</li>
-                                            <li id="fatCal">{{ Session::get('nf_calories_from_fat') }}</li>
-                                            <li id="fat">{{ Session::get('nf_total_fat') }}</li>
-                                            <li id="serving">{{ Session::get('nf_serving_size_qty') }}</li>
+                                            <li id="cal">Total Calories: {{ Session::get('nf_calories') }}</li>
+                                            <li id="fatCal">Calories from Fat: {{ Session::get('nf_calories_from_fat') }}</li>
+                                            <li id="fat">Total Fat: {{ Session::get('nf_total_fat') }}</li>
+                                            <li id="serving">Serving Size: {{ Session::get('nf_serving_size_qty') }} {{ Session::get('nf_serving_size_unit') }}</li>
                                         </ul>
                                     </div>
                                 </div>
