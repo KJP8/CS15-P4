@@ -22,7 +22,7 @@ class GroceryListController extends Controller
         $user = User::find($id);
         
         if(is_null($user)) {
-            Session::flash('flash_message','User not found.');
+            Session::flash('flash_message','User not found');
             return redirect('/');
         };
         
@@ -79,7 +79,7 @@ class GroceryListController extends Controller
         foreach ($foods as $item) {
             if ($reqFood == $item->food_name) {
                 
-                Session::flash('flash_message', $food->food_name.' is already in your list.');
+                Session::flash('flash_message', '"'.$food->food_name.'" is already in your list');
                 return redirect('/grocery-list/'.$id);
                 
             }   
@@ -95,11 +95,11 @@ class GroceryListController extends Controller
         if ($data['total_hits'] > 0) {
             $results = $data['hits'][0]['fields'];
             $user->foods()->save($food);
-            Session::flash('flash_message', $food->food_name.' was added.');
+            Session::flash('flash_message', '"'.$food->food_name.'" was added to your list');
             return redirect('grocery-list/'.$id)->with($results)->with('reqFood', $reqFood);
         }
         else {
-            Session::flash('flash_message', 'No results returned for '.$food->food_name.'. Please enter an actual food name.');
+            Session::flash('flash_message', 'No results found for "'.$food->food_name.'". Please enter an actual food name');
             return redirect('grocery-list/'.$id);
         }
         
@@ -113,13 +113,13 @@ class GroceryListController extends Controller
     {
         $food = Food::find($id);
         if(is_null($food)) {
-            Session::flash('flash_message','Food not found.');
+            Session::flash('flash_message','Food not found');
             return redirect('/grocery-list/'.$user_id);
         }
         
         $user = User::find($user_id);
         if(is_null($user)) {
-            Session::flash('flash_message','User not found.');
+            Session::flash('flash_message','User not found');
             return redirect('/');
         };
         
@@ -148,7 +148,7 @@ class GroceryListController extends Controller
         $user_id = $request->user_id;
         
         # Finish
-        Session::flash('flash_message', 'Your changes to '.$food->food_name.' were saved.');
+        Session::flash('flash_message', 'Your changes to "'.$food->food_name.'" were saved');
         return redirect('/grocery-list/'.$user_id);
     }
     
@@ -160,20 +160,38 @@ class GroceryListController extends Controller
         # Get the book to be deleted
         $food = Food::find($id);
         if(is_null($food)) {
-            Session::flash('flash_message','Food not found.');
+            Session::flash('flash_message','Food not found');
             return redirect('/grocery-list/'.$user_id);
         }
         
         $user = User::find($user_id);
         if(is_null($user)) {
-            Session::flash('flash_message','User not found.');
+            Session::flash('flash_message','User not found');
             return redirect('/');
         };
         # First remove any tags associated with this book
         $user->foods()->detach($id);
 
         # Finish
-        Session::flash('flash_message', $food->food_name.' was deleted.');
+        Session::flash('flash_message', '"'.$food->food_name.'" was removed from your list');
+        return redirect('/grocery-list/'.$user_id);
+    }
+    
+     /**
+    * GET
+    */
+    public function deleteAll($user_id = null)
+    {
+        $user = User::find($user_id);
+        if(is_null($user)) {
+            Session::flash('flash_message','User not found');
+            return redirect('/');
+        };
+        
+        User::find($user_id)->foods()->detach();
+        
+        # Finish
+        Session::flash('flash_message', 'All foods have been removed from your list');
         return redirect('/grocery-list/'.$user_id);
     }
     

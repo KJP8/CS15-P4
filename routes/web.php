@@ -26,6 +26,8 @@ Route::put('/grocery-list/{id}', 'GroceryListController@update')->name('foods.up
 
 Route::get('/delete/{user_id}/{id}', 'GroceryListController@delete')->name('foods.delete');
 
+Route::get('/delete/{user_id}/', 'GroceryListController@deleteAll')->name('foods.deleteAll');
+
 
 
 Auth::routes();

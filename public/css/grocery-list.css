@@ -17,7 +17,7 @@ button {
     margin-top: 10px;
 }
 
-form {
+#foodForm {
     width: 80%;
 }
 
@@ -34,4 +34,16 @@ form {
     border-radius: 10px;
     padding-right: 10px;
     padding-left: 10px;
+}
+
+#editOptions {
+    display: inline-block;
+}
+
+.glyphicon-pencil {
+    padding-right: 10px;
+}
+
+#delForm {
+    margin-top: 20px;
 }

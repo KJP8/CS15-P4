@@ -19,7 +19,7 @@
                     @if($edit)
                         <p class="text-center" id="directions">This tool allows you to enter foods into the field below to add them to your grocery list. As an added bonus, you get to see the nutritional information about each food you add as you add them! When you've finished shopping, you can delete all the foods from your list, or you can delete them one by one as you go.</p>
                         <div>
-                            <form method='POST' action='/grocery-list' class="form">
+                            <form method='POST' action='/grocery-list' class="form" id="foodForm">
                     
                             {{ csrf_field() }}
                         
@@ -65,13 +65,20 @@
                             <h3 id="warning">There are currently no foods in the Grocery List.<h3>
                         </div>
                     @else
-                        <div id='list' class="text-center">
+                        @if ($edit)
+                            <form method='GET' action='/delete/{{ $user->id }}' id="delForm">
+                                <button type="submit" class="btn btn-success center-block">Delete All Foods</button>
+                            </form>
+                        @endif
+                        
                             @foreach($foods as $food)
-                                <h3 class='truncate'>{{ $food->food_name }}</h3>
-                                @if ($edit)
-                                    <a class='button' href='/edit/{{ $user->id }}/{{ $food->id }}'>Edit</a>
-                                    <a class='button' href='/delete/{{ $user->id }}/{{ $food->id }}'>Delete</a>
-                                @endif
+                                <div id='list' class="text-center">
+                                    <h3 class='truncate'>{{ $food->food_name }}</h3>
+                                    @if ($edit)
+                                            <a class='button' href='/edit/{{ $user->id }}/{{ $food->id }}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                            <a class='button' href='/delete/{{ $user->id }}/{{ $food->id }}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></a>
+                                    @endif
+                                </div>
                             @endforeach
                         </div>    
                     @endif
