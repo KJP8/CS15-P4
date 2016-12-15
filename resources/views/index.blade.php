@@ -28,9 +28,9 @@
                 </div>
                     
             @else
-            <div class="col-md-4">
-                <p class="text-center"><a href="/login" class="link">Log In</a> or <a href="/register" class="link">Sign Up</a> now to create your own grocery list and access other users' grocery lists!</p>
-            </div>
+                <div class="col-md-4">
+                    <p class="text-center"><a href="/login" class="link">Log In</a> or <a href="/register" class="link">Sign Up</a> now to create your own grocery list and access other users' grocery lists!</p>
+                </div>
             @endif
         </div>
     </div>

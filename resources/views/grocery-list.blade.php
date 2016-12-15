@@ -82,8 +82,8 @@
                                 <div class="text-center listItem">
                                     <h3 class='truncate'>{{ $food->food_name }}</h3>
                                     @if ($edit)
-                                            <a class='button' href='/edit/{{ $user->id }}/{{ $food->id }}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                                            <a class='button' href='/delete/{{ $user->id }}/{{ $food->id }}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></a>
+                                        <a class='button' href='/edit/{{ $user->id }}/{{ $food->id }}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                        <a class='button' href='/delete/{{ $user->id }}/{{ $food->id }}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></a>
                                     @endif
                                 </div>
                             @endforeach

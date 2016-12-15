@@ -22,13 +22,11 @@
                         @if(sizeof($users) == 0)
                             There are currently no users signed up.
                         @else
-                            
                             <div class="text-center">
                                 @foreach($users as $user)
                                     <a href="<?php echo route('foods.show', $user->id) ?>"><h3 class='truncate'>{{ $user->name }}</h3></a>
                                 @endforeach
-                            </div>
-                                
+                            </div>  
                         @endif
                     </div>
                         
