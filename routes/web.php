@@ -11,24 +11,31 @@
 |
 */
 
+# Show index page
 Route::get('/', 'IndexController@index')->name('main.index');
 
+# Show user homepage
 Route::get('/home', 'HomeController@show')->name('home.show');
 
+# Show user's grocery list
 Route::get('/grocery-list/{id}', 'GroceryListController@show')->name('foods.show');
 
-Route::post('/grocery-list', 'GroceryListController@store')->name('foods.store');
+# Process form to add food to user's grocery list
+Route::post('/grocery-list', 'GroceryListController@store')->name('foods.store')->middleware('auth');
 
 # Show form to edit a food
-Route::get('/edit/{user_id}/{id}', 'GroceryListController@edit')->name('foods.edit');
+Route::get('/edit/{user_id}/{id}', 'GroceryListController@edit')->name('foods.edit')->middleware('auth');
+
 # Process form to edit a food
-Route::put('/grocery-list/{id}', 'GroceryListController@update')->name('foods.update');
+Route::put('/grocery-list/{id}', 'GroceryListController@update')->name('foods.update')->middleware('auth');
 
-Route::get('/delete/{user_id}/{id}', 'GroceryListController@delete')->name('foods.delete');
+# Process form to delete a food from user's grocery list
+Route::get('/delete/{user_id}/{id}', 'GroceryListController@delete')->name('foods.delete')->middleware('auth');
 
-Route::get('/delete/{user_id}/', 'GroceryListController@deleteAll')->name('foods.deleteAll');
+# Process form to delete all foods from user's grocery list
+Route::get('/delete/{user_id}/', 'GroceryListController@deleteAll')->name('foods.deleteAll')->middleware('auth');
 
 
-
+# Authentication-related routes
 Auth::routes();
 Route::get('/logout','Auth\LoginController@logout')->name('logout');

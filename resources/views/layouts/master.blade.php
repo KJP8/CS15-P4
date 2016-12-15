@@ -16,32 +16,37 @@
 </head>
     
 <body>
-    {{-- Bootstrap CSS/JS sticky nav bar--}}
+    {{-- Bootstrap CSS sticky nav bar--}}
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
+            
             <ul class="nav navbar-nav">
                 @if(Auth::check())
                     <!-- Required attribution to Nutritionix API -->
                     <li id="nutritionixImage"><a href="https://www.nutritionix.com/business/api"><img src="https://d3jpl91pxevbkh.cloudfront.net/nutritionix/image/upload/v1363458498/attribution_jqfdgy.png" alt="Nutritionix"></a></li>
                 @endif
+                
                 <li class="navText"><a href='/'>Main Page</a></li>
+                    
                 @if(Auth::check())
                     <li class="navText"><a href='/home'>Home</a></li>
                     <li class="navText"><a href='/grocery-list/{{ Auth::user()->id }}'>My Grocery List</a></li>
                 @endif
             </ul>
-            {{-- Add logic here for logged in users and admins --}}
+                
+            {{-- Logic for logged in users and admins --}}
             <ul class='nav navbar-nav pull-right'>
-            @if(Auth::check())
-                <li class="navText"><a href='/logout'>Sign Out</a></li>
-            @else
-                <li class="{{ Request::path() == 'login' ? 'active' : '' }} navText"><a href='/login'>Log In</a></li>
-                <li class="{{ Request::path() == 'register' ? 'active' : '' }} navText"><a href='/register'>Sign Up</a></li>
-            @endif
+                @if(Auth::check())
+                    <li class="navText"><a href='/logout'>Sign Out</a></li>
+                @else
+                    <li class="{{ Request::path() == 'login' ? 'active' : '' }} navText"><a href='/login'>Log In</a></li>
+                    <li class="{{ Request::path() == 'register' ? 'active' : '' }} navText"><a href='/register'>Sign Up</a></li>
+                @endif
             </ul>
         </div>
     </nav>
-        
+    
+    {{-- Show flash message --}}
     @if(Session::get('flash_message') != null)
         <div class='flash_message'>{{ Session::get('flash_message') }}</div>
     @endif
@@ -53,10 +58,5 @@
         
     {{-- Yield any page specific JS files or anything else you might want at the end of the body --}}
     @yield('body')
-    
-    {{-- Link to jQuery --}}
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-    {{-- Link to Bootstrap JS --}}
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

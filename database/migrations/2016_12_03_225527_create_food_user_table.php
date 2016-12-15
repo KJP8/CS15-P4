@@ -18,9 +18,9 @@ class CreateFoodUserTable extends Migration
             $table->increments('id');
             $table->timestamps();
     
-            # `book_id` and `tag_id` will be foreign keys, so they have to be unsigned
+            # `food_id` and `user_id` will be foreign keys, so they have to be unsigned
             #  Note how the field names here correspond to the tables they will connect...
-            # `book_id` will reference the `books table` and `tag_id` will reference the `tags` table.
+            # `food_id` will reference the `foods' table and `user_id` will reference the `users` table.
             $table->integer('food_id')->unsigned();
             $table->integer('user_id')->unsigned();
     

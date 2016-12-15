@@ -16,11 +16,13 @@ class UsersTableSeeder extends Seeder
         $users = [
             ['jill@harvard.edu','Jill','helloworld'], # <-- Required for P4
             ['jamal@harvard.edu','Jamal','helloworld'], # <-- Required for P4
-            ['admin@admin.com','Admin','admin'] # <-- Update with your own info, or remove
+            ['admin@admin.com','Admin','admin']
         ];
+        
         # Get existing users to prevent duplicates
         $existingUsers = User::all()->keyBy('email')->toArray();
         foreach($users as $user) {
+            
             # If the user does not already exist, add them
             if(!array_key_exists($user[0],$existingUsers)) {
                 $user = User::create([

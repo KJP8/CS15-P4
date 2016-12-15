@@ -21,7 +21,7 @@ button {
     width: 80%;
 }
 
-#warning, #list {
+#warning, .listItem {
     color: green;
 }
 
