@@ -13,11 +13,12 @@ This application allows a user to sign up/log in to access their own personal gr
 * Create: On logged-in user's grocery list screen, the user can add a food to his database
 * Read: On logged-in user's home screen, the user can see a list of all the users
 * Read: On logged-in user's grocery list screen, the user can see a list of all the foods in his grocery list
+* Read: Logged-in user can see any other user's grocery list
 * Update: On logged-in user's edit screen, the user can update the name of a food in his list
-* Delete: On logged-in user's grocery list screen, the user can delete individual foods or all foods from their list
+* Delete: On logged-in user's grocery list screen, the user can delete individual foods or all foods from his list
 
 ## Demo
-<>
+<http://www.screencast.com/t/w4jNZRKw1>
 
 ## Details for teaching team
 None that I can think of.
