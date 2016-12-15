@@ -11,15 +11,16 @@ class HomeController extends Controller
 {
 
     /**
-    * Responds to requests to GET /admin-home
+    * GET
     */
-    
     public function show(Request $request)
     {
+        # Get all users from users table
         $users = DB::table('users')
             ->orderBy('name', 'asc')
             ->get();
-            
+        
+        # Show list of users in home view
         return view('/home', ['users' => $users]);
     }
 
